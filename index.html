@@ -10,22 +10,17 @@
         <script type="text/javascript" src="jquery-2.1.4.min.js"></script>
         <script src="main.js"></script>
         <input class="extrabutton" type="button" id="createExtraButton" value="Insert Row">
-        <script>
-            $(document).ready(function () {
-                $('#createExtraButton').click(function() {
-                    $('#myTable > tbody:last').append('<tr><td>название</td><td>население</td><td>дата</td></tr>');
-                });
-            });
-        </script>
-        
-        <table id='myTable' border="1px">
-            <tbody>
-            <tr>
-                <th>Название страны</th>
-                <th>Население</th>
-                <th>Дата</th> 
-            </tr>
-            <tr>
+        <button type="button" class="btn btn-default" id="save">Save</button>  
+        <table class="mT" id='myTable' border="1px">
+            <thead>
+                <tr>
+                    <th>Название страны</th>
+                    <th>Население</th>
+                    <th>Дата</th> 
+                </tr>
+            </thead>
+            <tbody>    
+            <!--<tr>
                 <td> Россия </td>
                 <td> 146 267 288 </td>
                 <td> 1 января 2015</td>
@@ -34,7 +29,7 @@
                 <td>Германия</td>
                 <td>80 716 000</td>
                 <td>30 сентября 2013</td>
-            </tr>
+            </tr> -->
             </tbody>
         </table>
     </body>
