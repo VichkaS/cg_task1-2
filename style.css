@@ -1,14 +1,48 @@
 table {
-    width: 70%; /* Ширина таблицы */
-    background: white; /* Цвет фона таблицы */
-    color: white; /* Цвет текста */
-    border-spacing: 1px; /* Расстояние между ячейками */
+    width: 80%;
+    background: white;
+    color: white;
+    border-spacing: 1px;
 }
 td {
-    background: #33ccff; /* Цвет фона ячеек */
-    padding: 5px; /* Поля вокруг текста */
+    background: #33ccff;
+    padding: 5px;
 }
 th {
-    background: #3399ff; /* Цвет фона ячеек */
-    padding: 5px; /* Поля вокруг текста */
+    background: #3399ff;
+    padding: 5px;
 }
+
+.overlay {
+    background:transparent url('overlay.png') repeat top left;
+    position:fixed;
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    z-index:100;
+}
+
+.nonebox {
+    position:fixed;
+    top:-300px;
+    left:35%;
+    right:35%;
+    background:#fff;
+    color:#4d4d4d;
+    padding:25px;
+    border:5px solid #e4e4e4;
+    width:30%;
+    z-index:101;
+}
+
+a.box-close {
+	float:right;
+	width:26px;
+	height:26px;
+	height:26px;
+	background:url('close.png') repeat top left;;
+	margin:-30px -30px 0px 0px;
+	cursor:pointer;
+	display:block
+}   

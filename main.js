@@ -14,13 +14,35 @@ $('body').on('dblclick','td', function(e) {
 
 $(document).ready(function () {
     $('#createExtraButton').click(function() {
-        $('#myTable > tbody:last').append('<tr><td>название</td><td>население</td><td>дата</td></tr>');
+        $('#myTable > tbody:last').append('<tr><td>название</td><td>1</td><td>дата</td></tr>');
     });
     $('#save').click(function() {
         saveTable();
-        console.log(123);
     });
-});
+    $('#about').click(function() { 
+         $('#overlay').fadeIn('fast',function(){ 
+             $('#nonebox').animate({'top':'160px'},500);
+         });
+     });
+    $('#box-close').click(function(){ 
+         $('#nonebox').animate({'top':'-200px'},500,function(){
+             $('#overlay').fadeOut('fast');
+         });
+     });
+    $('#jsonBut').click(function() {
+        $('#overlay').fadeIn('fast',function(){
+             $('#nonebox1').animate({'top':'160px'},500);
+                var user = getTable();
+                var str = JSON.stringify(user);
+                $('#tab').html(str);
+         });
+     });
+    $('#box-close1').click(function(){
+         $('#nonebox1').animate({'top':'-300px'},500,function(){
+             $('#overlay').fadeOut('fast');
+         });
+     });          
+})
 
 function loadTable() {
     var obj = JSON.parse(localStorage["table"]);
@@ -32,7 +54,11 @@ function loadTable() {
 }
 
 function saveTable() {
-    var tableObj = {};
+    var rowsArr = getTable();
+    localStorage["table"] = JSON.stringify(rowsArr);
+}
+
+function getTable() {
     var rowsArr = [];
     var table = document.getElementById('myTable').getElementsByTagName('tbody')[0];
 
@@ -46,8 +72,9 @@ function saveTable() {
             cell['date'] = cells[2].innerHTML;
             rowsArr.push(cell);
         }
-    localStorage["table"] = JSON.stringify(rowsArr);
+    return rowsArr;
 }
+
 window.onload = function() {
     loadTable();
 }
