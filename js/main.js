@@ -20,26 +20,16 @@ $(document).ready(function () {
         saveTable();
     });
 
-    $('#about').click(function() { 
-         $('#overlay').fadeIn('fast',function(){ 
-             $('#nonebox').animate({'top':'160px'},500);
-         });
-     });
-    $('#box-close').click(function(){ 
-         $('#nonebox').animate({'top':'-200px'},500,function(){
-             $('#overlay').fadeOut('fast');
-         });
-     });
     $('#jsonBut').click(function() {
         $('#overlay').fadeIn('fast',function(){
-             $('#nonebox1').animate({'top':'160px'},500);
+             $('#nonebox').animate({'top':'160px'},500);
                 var user = getTable();
                 var str = JSON.stringify(user);
                 $('#tab').html(str);
          });
      });
-    $('#box-close1').click(function(){
-         $('#nonebox1').animate({'top':'-300px'},500,function(){
+    $('#box-close').click(function(){
+         $('#nonebox').animate({'top':'-300px'},500,function(){
              $('#overlay').fadeOut('fast');
          });
      });          
@@ -82,7 +72,7 @@ window.onload = function() {
 
 var dialog = document.querySelector('dialog');
 document.querySelector('#show').onclick = function() {
-    $('#dia').animate({'top':'160px'},500);
+    $('#dialog').animate({'top':'160px'},500);
     dialog.showModal();
     var canvas = document.getElementById("myCanvas"),
         ctx = canvas.getContext('2d'),
@@ -100,7 +90,6 @@ document.querySelector('#show').onclick = function() {
     tV.y = 0;
     tA.x = 306;
     tA.y = 0;
-    
     (function drawFrameG () {
         window.requestAnimationFrame(drawFrameG, canvas);
         ctx.clearRect(0, 0, 148, canvas.height);
@@ -152,6 +141,6 @@ document.querySelector('#show').onclick = function() {
 };
 
 document.querySelector('#close').onclick = function() {
-  dialog.close();
-  $('#dia').animate({'top':'-300px'},500)
+    $('#dialog').animate({'top':'-300px'},500)
+    dialog.close();
 };

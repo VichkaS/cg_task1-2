@@ -10,18 +10,19 @@
     <body> 
         <button type="button" id="createExtraButton">Insert Row</button>
         <button type="button" id="save">Save</button>  
-        <button type="button" id="about">About</button> 
         <button type="button" id="jsonBut">Export to JSON</button> 
-        <button id="show">Анимация</button>
+        <button type="button" id="show">About</button>
         <div class="overlay" id="overlay" style="display:none;"></div>
         
-        <dialog class="nonebox" id="dia" href="#">
+        <dialog class="nonebox" id="dialog" href="#">
             <a class="box-close" id="close"></a>
-            <canvas id="myCanvas" width="400" height="400"><!-- Insert fallback content here --></canvas>
+            <canvas id="myCanvas" width="400" height="400"></canvas>
         </dialog>
         
-        <script src="js/canvas.js"></script>
+        <script src="js/diagram.js"></script>
+        <script src="js/animation.js"></script>
         <script src="js/main.js"></script>
+        
         <table id='myTable' border="1px">
             <thead>
                 <tr>
@@ -33,13 +34,8 @@
             <tbody>    
             </tbody>
         </table>
-        <div class="nonebox" id="nonebox"> 
-            <a class="box-close" id="box-close" href="#"></a> 
-            <h3>Гавриленко Виктория Александровна</h3>
-            <p id="can"></p>
-        </div> 
-        <div class="nonebox" id="nonebox1">
-            <a class="box-close" id="box-close1" href="#"></a>
+        <div class="nonebox" id="nonebox">
+            <a class="box-close" id="box-close" href="#"></a>
             <p id="tab"></p>
         </div> 
     </body>
