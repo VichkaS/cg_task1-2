@@ -3,18 +3,25 @@
     <head>
         <title> Редактор таблиц</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="style.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
     </head>
     
-    <body>
-        <script type="text/javascript" src="jquery-2.1.4.min.js"></script>
-        <script src="main.js"></script>
+    <body> 
         <button type="button" id="createExtraButton">Insert Row</button>
         <button type="button" id="save">Save</button>  
         <button type="button" id="about">About</button> 
         <button type="button" id="jsonBut">Export to JSON</button> 
+        <button id="show">Анимация</button>
         <div class="overlay" id="overlay" style="display:none;"></div>
         
+        <dialog class="nonebox" id="dia" href="#">
+            <a class="box-close" id="close"></a>
+            <canvas id="myCanvas" width="400" height="400"><!-- Insert fallback content here --></canvas>
+        </dialog>
+        
+        <script src="js/canvas.js"></script>
+        <script src="js/main.js"></script>
         <table id='myTable' border="1px">
             <thead>
                 <tr>
@@ -29,8 +36,9 @@
         <div class="nonebox" id="nonebox"> 
             <a class="box-close" id="box-close" href="#"></a> 
             <h3>Гавриленко Виктория Александровна</h3>
+            <p id="can"></p>
         </div> 
-        <div class="nonebox" id="nonebox1"> 
+        <div class="nonebox" id="nonebox1">
             <a class="box-close" id="box-close1" href="#"></a>
             <p id="tab"></p>
         </div> 

@@ -1,15 +1,15 @@
 $('body').on('dblclick','td', function(e) {
     var t = e.target || e.srcElement;
-        var elm_name = t.tagName.toLowerCase();
-        if(elm_name == 'input')	{return false;}
+    var elm_name = t.tagName.toLowerCase();
+    if(elm_name == 'input')	{return false;}
         var val = $(this).html();
         var code = '<input type="text" id="edit" value="'+val+'"/>';
-        $(this).empty().append(code);
-        $('#edit').focus();
-        $('#edit').blur(function()	{
-            var val = $(this).val();
-            $(this).parent().empty().html(val);
-        });
+            $(this).empty().append(code);
+            $('#edit').focus();
+            $('#edit').blur(function()	{
+                var val = $(this).val();
+                $(this).parent().empty().html(val);
+            });
 });
 
 $(document).ready(function () {
@@ -19,6 +19,7 @@ $(document).ready(function () {
     $('#save').click(function() {
         saveTable();
     });
+
     $('#about').click(function() { 
          $('#overlay').fadeIn('fast',function(){ 
              $('#nonebox').animate({'top':'160px'},500);
@@ -78,3 +79,79 @@ function getTable() {
 window.onload = function() {
     loadTable();
 }
+
+var dialog = document.querySelector('dialog');
+document.querySelector('#show').onclick = function() {
+    $('#dia').animate({'top':'160px'},500);
+    dialog.showModal();
+    var canvas = document.getElementById("myCanvas"),
+        ctx = canvas.getContext('2d'),
+        tG = new G(),
+        tV = new V(),
+        tA = new A(),
+        top = 0,
+        bottom = canvas.height,
+        vyG = 10,
+        vyV = 8,
+        vyA = 9;
+    tG.x = 30;
+    tG.y = 0;
+    tV.x = 148;
+    tV.y = 0;
+    tA.x = 306;
+    tA.y = 0;
+    
+    (function drawFrameG () {
+        window.requestAnimationFrame(drawFrameG, canvas);
+        ctx.clearRect(0, 0, 148, canvas.height);
+
+        tG.y += vyG;
+
+        if (tG.y + 140 > bottom ) {
+          tG.y = bottom - 140;
+          vyG *= -1;
+        } else if (tG.y < top) {
+          tG.y = top;
+          vyG *= -1;
+        }
+        
+        tG.printG(ctx);
+      }());
+    
+    (function drawFrameV () {
+        window.requestAnimationFrame(drawFrameV, canvas);
+        ctx.clearRect(148, 0, 148, canvas.height);
+
+        tV.y += vyV;
+
+        if (tV.y + 140 > bottom ) {
+          tV.y = bottom - 140;
+          vyV *= -1;
+        } else if (tV.y < top) {
+          tV.y = top;
+          vyV *= -1;
+        }
+        tV.printV(ctx); 
+      }());
+    (function drawFrameA () {
+        window.requestAnimationFrame(drawFrameA, canvas);
+        ctx.clearRect(296, 0, 148, canvas.height);
+
+        tA.y += vyA;
+
+        if (tA.y + 140 > bottom ) {
+          tA.y = bottom - 140;
+          vyA *= -1;
+        } else if (tA.y < top) {
+          tA.y = top;
+          vyA *= -1;
+        }
+        tA.printA(ctx); 
+      }());
+    
+};
+
+document.querySelector('#close').onclick = function() {
+  dialog.close();
+  $('#dia').animate({'top':'-300px'},500)
+};

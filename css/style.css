@@ -14,7 +14,7 @@ th {
 }
 
 .overlay {
-    background:transparent url('overlay.png') repeat top left;
+    background:transparent url('../img/overlay.png') repeat top left;
     position:fixed;
     top:0px;
     bottom:0px;
@@ -41,8 +41,17 @@ a.box-close {
 	width:26px;
 	height:26px;
 	height:26px;
-	background:url('close.png') repeat top left;;
+	background:url('../img/close.png') repeat top left;;
 	margin:-30px -30px 0px 0px;
 	cursor:pointer;
 	display:block
 }   
+
+dialog::backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
