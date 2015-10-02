@@ -7,14 +7,18 @@ $('body').on('dblclick','td', function(e) {
             $(this).empty().append(code);
             $('#edit').focus();
             $('#edit').blur(function()	{
-                var val = $(this).val();
-                $(this).parent().empty().html(val);
+                var value = $(this).val();
+                $(this).parent().empty().html(value);
+                if (value != val) {
+                    $(pieChart);
+                }
             });
 });
 
 $(document).ready(function () {
     $('#createExtraButton').click(function() {
-        $('#myTable > tbody:last').append('<tr><td>название</td><td>1</td><td>дата</td></tr>');
+        $('#myTable > tbody:last').append('<tr><td>название</td><td>1</td>');
+        $(pieChart);
     });
     $('#save').click(function() {
         saveTable();
@@ -40,7 +44,7 @@ function loadTable() {
     var listRecords = [];
     for (var i in obj) {
         console.log(obj[i]);
-        $('#myTable > tbody:last').append('<tr><td>' + obj[i].country + '</td><td>'+ obj[i].population + '</td><td>' + obj[i].date + '</td></tr>');
+        $('#myTable > tbody:last').append('<tr><td>' + obj[i].country + '</td><td>'+ obj[i].population + '</td></tr>');
     };  
 }
 
@@ -60,7 +64,6 @@ function getTable() {
             var cell = {};
             cell['country'] = cells[0].innerHTML;
             cell['population'] = cells[1].innerHTML;
-            cell['date'] = cells[2].innerHTML;
             rowsArr.push(cell);
         }
     return rowsArr;
@@ -68,6 +71,7 @@ function getTable() {
 
 window.onload = function() {
     loadTable();
+    $(pieChart);
 }
 
 var dialog = document.querySelector('dialog');
