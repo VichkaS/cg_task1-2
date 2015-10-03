@@ -10,7 +10,9 @@ $('body').on('dblclick','td', function(e) {
                 var value = $(this).val();
                 $(this).parent().empty().html(value);
                 if (value != val) {
-                    $(pieChart);
+                    initDiagram();
+                    drawChart3d();
+                    drawChart2d();
                 }
             });
 });
@@ -18,7 +20,9 @@ $('body').on('dblclick','td', function(e) {
 $(document).ready(function () {
     $('#createExtraButton').click(function() {
         $('#myTable > tbody:last').append('<tr><td>название</td><td>1</td>');
-        $(pieChart);
+        initDiagram();
+        drawChart3d();
+        drawChart2d();
     });
     $('#save').click(function() {
         saveTable();
@@ -43,7 +47,6 @@ function loadTable() {
     var obj = JSON.parse(localStorage["table"]);
     var listRecords = [];
     for (var i in obj) {
-        console.log(obj[i]);
         $('#myTable > tbody:last').append('<tr><td>' + obj[i].country + '</td><td>'+ obj[i].population + '</td></tr>');
     };  
 }
@@ -71,7 +74,9 @@ function getTable() {
 
 window.onload = function() {
     loadTable();
-    $(pieChart);
+    initDiagram();
+    drawChart3d();
+    drawChart2d();
 }
 
 var dialog = document.querySelector('dialog');
