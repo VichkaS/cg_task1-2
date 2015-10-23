@@ -17,6 +17,8 @@ $('body').on('dblclick','td', function(e) {
             });
 });
 
+
+
 $(document).ready(function () {
     $('#createExtraButton').click(function() {
         $('#myTable > tbody:last').append('<tr><td>название</td><td>1</td>');

@@ -36,12 +36,9 @@ function initDiagram() {
                     masColor[currentRow] = color[currentRow % 10];
                 }
             }
-            
-            
         } else {
             var value = parseFloat($(this).text());
             totalValue += value;
-            value = value.toFixed(2);
             chartData[currentRow][1] = value;
         }
         $(this).data('slice', currentRow);
@@ -50,7 +47,7 @@ function initDiagram() {
     var currentPos = 0;
     for (var slice in chartData) {
         chartData[slice]['startAngle'] = 2 * Math.PI * currentPos;
-        chartData[slice]['endAngle'] = 2 * Math.PI * ( currentPos + ( chartData[slice][1] / totalValue ) );
+        chartData[slice]['endAngle'] = 2 * Math.PI * (currentPos + (chartData[slice][1] / totalValue ));
         currentPos += chartData[slice][1] / totalValue;
     }
     console.log(chartData);
@@ -59,25 +56,22 @@ function initDiagram() {
 
 function drawChart3d() {
     context.clearRect(0, (canvasWidth / 2), (canvasWidth / 2), canvasHeight);
-    var countRow = -1;
     for (var i = 0; i <= 40; i+=1) {
-        var countRow = -1;
         for (var slice in chartData) {
-            countRow++
-            drawSlice3d(context, slice, centreX3d, centreY3d - i, countRow);
+            context.fillStyle = masColor[slice];
+            context.strokeStyle = '#000';
+            drawSlice3d(context, slice, centreX3d, centreY3d - i);
         }
-    }
+    }     
 }
 
 function randomColor() {
     return "#" + Math.floor(Math.random() * 0xffffff).toString(16);
 }
 
-function drawSlice3d(context, slice, cntrX, cntrY, countRow) {
+function drawSlice3d(context, slice, cntrX, cntrY) {
     var startAngle = chartData[slice]['startAngle'] + chartStartAngle, 
         endAngle = chartData[slice]['endAngle'] + chartStartAngle;
-    context.fillStyle = masColor[countRow];
-    context.strokeStyle = '#000';
     context.save();
     context.beginPath();
     context.translate(cntrX, cntrY);
@@ -85,22 +79,20 @@ function drawSlice3d(context, slice, cntrX, cntrY, countRow) {
     context.scale(radiusA / radiusB, 1);
     context.arc(0, 0, radiusB, startAngle, endAngle, false);
     context.restore();
-    context.closePath();
     context.lineWidth = 1; 
     context.stroke();
+    context.closePath();
     context.fill();
 }
 
 function drawChart2d() {
     context.clearRect(0, 0, (canvasWidth / 2), canvasHeight);
-    var countRow = -1;
     for (var slice in chartData) {
-        countRow++
-        drawSlice2d(context, slice, countRow);
+        drawSlice2d(context, slice);
     }
 }
 
-function drawSlice2d(context, slice, countRow) {
+function drawSlice2d(context, slice) {
     var startAngle = chartData[slice]['startAngle']  + chartStartAngle, 
         endAngle = chartData[slice]['endAngle']  + chartStartAngle;
     startX = centreX2d;
@@ -109,8 +101,56 @@ function drawSlice2d(context, slice, countRow) {
     context.moveTo(startX, startY);
     context.arc(startX, startY, chartRadius, startAngle, endAngle, false);
     context.lineTo(startX, startY);
-    context.closePath();
-    context.fillStyle = masColor[countRow];
+    context.fillStyle = masColor[slice];
     context.fill();
     context.stroke();
+    context.closePath();
+}
+
+function drawHint(count) {
+    context.clearRect(0, (canvasWidth / 2), (canvasWidth / 2), canvasHeight);
+    for (var i = 0; i <= 40; i+=1) {
+        for (var slice in chartData) {
+            if (count == slice) {
+                context.fillStyle = "#ffffe0";
+                context.strokeStyle = "#eeeed1";
+            } else {
+                context.fillStyle = masColor[slice];
+                context.strokeStyle = "#000";
+            }
+            drawSlice3d(context, slice, centreX3d, centreY3d - i);
+        }
+    }
+    context.clearRect((canvasWidth / 2), 0, (canvasWidth / 2), 70);
+    context.beginPath();
+    context.font = "26px comic sans ms";
+    context.strokeStyle = masColor[count];
+    context.lineWidth = 5;
+    context.strokeRect((canvasWidth / 2) + 70, 17, (canvasWidth / 2) - 150, 40);
+    context.fillStyle = "#000";
+    context.fillText(chartData[count][0], (canvasWidth / 2) + 80, 45);
+    context.closePath();
+}
+
+canvas.onmousemove = function ( clickEvent ) {
+  var mouseX = clickEvent.pageX - this.offsetLeft;
+  var mouseY = clickEvent.pageY - this.offsetTop;
+
+  var xFromCentre = mouseX - centreX3d;
+  var yFromCentre = (mouseY + 40) - centreY3d;
+  var distanceFromCentre = Math.pow(Math.abs(xFromCentre), 2) / Math.pow(radiusA, 2) + 
+      Math.pow( Math.abs(yFromCentre), 2) / Math.pow(radiusB, 2);
+
+  if (distanceFromCentre <= 1) {
+    var clickAngle = Math.atan2( yFromCentre / radiusB, xFromCentre / radiusA ) - chartStartAngle;
+    if ( clickAngle < 0 ) clickAngle = 2 * Math.PI + clickAngle;          
+    for ( var slice in chartData ) {
+      if ( clickAngle >= chartData[slice]['startAngle'] && clickAngle <= chartData[slice]['endAngle'] ) {
+          drawHint(slice);
+      }
+    }
+  } else {
+      context.clearRect((canvasWidth / 2), 0, (canvasWidth / 2), 70);
+      drawChart3d();
+  }
 }

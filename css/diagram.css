@@ -1,3 +1,7 @@
 .diagram3d {
+    margin-top: 10px;
     border: 1px solid #000;
+}
+#hint {
+    display: block;
 }
